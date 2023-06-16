@@ -18,9 +18,9 @@ Vagrant.configure("2") do |config|
   end
 
   # Define k8s nodes
-  kubernets_nodes =   {"k8s-1" => "192.168.1.101",
-                       "k8s-2" => "192.168.1.102",
-                       "k8s-3" => "192.168.1.103"}
+  kubernets_nodes =   {"k8s-1" => "192.168.1.201",
+                       "k8s-2" => "192.168.1.202",
+                       "k8s-3" => "192.168.1.203"}
   kubernets_nodes.each do |node_name, node_ip|
     config.vm.define node_name do |k8s_node|
       # machine settings
