@@ -4,6 +4,9 @@ sudo swapoff -a
 # update apt repos
 sudo apt update -y
 
+# install vbox guest
+sudo apt install -y virtualbox-guest-additions-iso
+
 # install certificates
 sudo apt install -y ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -26,4 +29,3 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 # sudo groupadd docker
 sudo usermod -aG docker ubuntu
 sudo usermod -aG docker vagrant
-sudo usermod -aG docker vboxadd
