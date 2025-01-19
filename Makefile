@@ -6,6 +6,9 @@ help: ## Display this help
 up:
 	@echo "rancher\nk8s-1\nk8s-2\nk8s-3\n" | xargs -n1 -P6 vagrant up
 
+destroy:
+	@vagrant destroy
+
 rancher:
 	@vagrant up rancher && vagrant ssh rancher -c 'docker logs rancher 2>&1 | grep "Bootstrap Password:"' && vagrant ssh rancher -c 'sudo su'
 
