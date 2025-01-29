@@ -2,6 +2,7 @@ sudo docker run -d \
   --privileged \
   --restart=unless-stopped \
   --net=host \
+  --ip <container-ip> \
   -v /etc/kubernetes:/etc/kubernetes \
   -v /var/run:/var/run \
   rancher/rancher-agent:v2.10.1 \

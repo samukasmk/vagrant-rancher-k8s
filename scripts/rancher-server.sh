@@ -7,3 +7,5 @@ sudo docker run -d \
     -p 443:443 \
     --privileged \
     rancher/rancher:stable
+
+echo $(docker logs rancher 2>&1 | grep "Bootstrap Password:")
