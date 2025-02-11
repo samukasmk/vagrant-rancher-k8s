@@ -1,58 +1,44 @@
 Vagrant.configure("2") do |config|
-  # Define rancher server
-  rancher_servers = {"rancher" => "192.168.1.200"}
+  # Define k8s node configs
+  rancher_nodes = {"rancher"      => {"type" => "master", "ip" => "192.168.0.240"},
+                   "k8s-master-1" => {"type" => "agent",  "ip" => "192.168.0.241"},
+                   "k8s-worker-a" => {"type" => "agent",  "ip" => "192.168.0.251"},
+                   "k8s-worker-b" => {"type" => "agent",  "ip" => "192.168.0.252"},
+                   "k8s-worker-c" => {"type" => "agent",  "ip" => "192.168.0.253"}}
 
-  rancher_servers.each do |server_name, server_ip|
-
-    config.vm.define server_name do |rancher_server|
+  # Declare vms
+  rancher_nodes.each do |hostname, node|
+    config.vm.define hostname do |machine|
       # machine settings
-      rancher_server.vm.box = "ubuntu/jammy64"
-      rancher_server.vm.hostname = server_name
-      rancher_server.vm.provider "virtualbox" do |v|
-        v.name = server_name
+      machine.vm.box = "ubuntu/jammy64"
+      machine.vm.hostname = hostname
+      machine.vm.provider "virtualbox" do |v|
+        v.name = hostname
         v.cpus = 4
-        v.memory = 6144
+        v.memory = 5125
       end
+
       # network settings
-      rancher_server.vm.network "public_network", bridge: "wlo1", ip: server_ip
+      machine.vm.network "public_network", ip: node["ip"], bridge: "wlo1"
+
       # set hostname on restarts
-      rancher_server.vm.provision "shell", inline: "sudo hostnamectl set-hostname #{server_name}"
+      machine.vm.provision "shell", inline: "sudo hostnamectl set-hostname #{hostname}"
+
       # set etc hosts
-      rancher_server.vm.provision "shell", path: "scripts/etc_hosts.sh"
+      machine.vm.provision "shell", path: "scripts/etc_hosts.sh"
+
       # install docker
-      rancher_server.vm.provision "shell", path: "scripts/install-docker.sh"
-      # run rancher server in single node
-      rancher_server.vm.provision "shell", path: "scripts/rancher-server.sh"
-    end
+      machine.vm.provision "shell", path: "scripts/install-docker.sh"
 
-  end
-
-  # Define k8s nodesagent_ip
-  rancher_agents = {"k8s-1" => "192.168.1.201",
-                    "k8s-2" => "192.168.1.202",
-                    "k8s-3" => "192.168.1.203"}
-
-  rancher_agents.each do |agent_name, agent_ip|
-
-    config.vm.define agent_name do |rancher_agent|
-      # machine settings
-      rancher_agent.vm.box = "ubuntu/jammy64"
-      rancher_agent.vm.hostname = agent_name
-      rancher_agent.vm.provider "virtualbox" do |v|
-        v.name = agent_name
-        v.cpus = 4
-        v.memory = 6144
+      # install rancher node instructions
+      if node["type"] == "master"
+        # run rancher server in single node
+        machine.vm.provision "shell", path: "scripts/rancher-server.sh"
+      else
+        # active kubernets nodes in rancher server
+        machine.vm.provision "shell", path: "scripts/k8s-nodes.sh"
       end
-      # network settings
-      rancher_agent.vm.network "public_network", bridge: "wlo1", ip: agent_ip
-      # set hostname on restarts
-      rancher_agent.vm.provision "shell", inline: "sudo hostnamectl set-hostname #{agent_name}"
-      # set etc hosts
-      rancher_agent.vm.provision "shell", path: "scripts/etc_hosts.sh"
-      # install docker
-      rancher_agent.vm.provision "shell", path: "scripts/install-docker.sh"
-      # active kubernets nodes in rancher server
-      # rancher_agent.vm.provision "shell", path: "scripts/k8s-nodes.sh"
+
     end
 
   end
