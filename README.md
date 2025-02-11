@@ -11,7 +11,36 @@ Install the requirements below
 ```
 git clone https://github.com/samukasmk/vagrant-rancher-k8s.git
 
-cd vagrant-rancher-k8s
+```
 
-vagrant up
+## Provisioning machines
+
+### rancher-server
+```
+cd vagrant-rancher-k8s
+make rancher
+```
+
+### kubernets master (a)
+```
+cd vagrant-rancher-k8s
+make k8s-master-a
+```
+
+### kubernets worker (1)
+```
+cd vagrant-rancher-k8s
+make k8s-worker-1
+```
+
+### kubernets worker (2)
+```
+cd vagrant-rancher-k8s
+make k8s-worker-2
+```
+
+### kubernets worker (3)
+```
+cd vagrant-rancher-k8s
+make k8s-worker-3
 ```

@@ -29,3 +29,9 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 # sudo groupadd docker
 sudo usermod -aG docker ubuntu
 sudo usermod -aG docker vagrant
+
+# config net bridge
+sudo echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.conf
+sudo echo "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.conf
+sudo modprobe br_netfilter
+sudo sysctl -p /etc/sysctl.conf

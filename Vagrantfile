@@ -1,10 +1,10 @@
 Vagrant.configure("2") do |config|
   # Define k8s node configs
   rancher_nodes = {"rancher"      => {"type" => "master", "ip" => "192.168.0.240"},
-                   "k8s-master-1" => {"type" => "agent",  "ip" => "192.168.0.241"},
-                   "k8s-worker-a" => {"type" => "agent",  "ip" => "192.168.0.251"},
-                   "k8s-worker-b" => {"type" => "agent",  "ip" => "192.168.0.252"},
-                   "k8s-worker-c" => {"type" => "agent",  "ip" => "192.168.0.253"}}
+                   "k8s-master-a" => {"type" => "agent",  "ip" => "192.168.0.241"},
+                   "k8s-worker-1" => {"type" => "agent",  "ip" => "192.168.0.251"},
+                   "k8s-worker-2" => {"type" => "agent",  "ip" => "192.168.0.252"},
+                   "k8s-worker-3" => {"type" => "agent",  "ip" => "192.168.0.253"}}
 
   # Declare vms
   rancher_nodes.each do |hostname, node|
