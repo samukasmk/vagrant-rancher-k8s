@@ -66,22 +66,32 @@ echo "
 ```
 
 - Access rancher dashboard by url [https://rancher.local/](https://rancher.local/)
+
+- Because the cert is not valid you need to accept risk:
+![](docs/images/rancher-cert.png)
+
 - Change admin password as rancher server will be asked to you
 - Login as admin
+![](docs/images/rancher-login.png)
 
 ## Create cluster
-- After you have logged in `rancher dashboard` click in `Create cluster`
+- After you have logged in `rancher dashboard` click in `Create`
+![](docs/images/rancher-first-screen.png)
 
 - Select for Type: `rke1` if you want your kubernetes cluster managing containers by `docker`
 > I prefer this optional if you are learning to bne simplier to see and understand where the container pods are in kubernetes nodes
+![](docs/images/rancher-creating-cluster-1.png)
 
-
+- Define a cluster name
+![](docs/images/rancher-creating-cluster-2.png)
 
 ## Register nodes
 - After create a cluster access area of `Registring node` and specify nodes to register with below instructions:
 
 
 ### Registring node: k8s-master-a
+![](docs/images/registrer-k8s-master.png)
+
 #### Registration -> Step 1
 
 - Node role: [**X**] **etcd**, [**X**] **Control Plane**, [**X**] **Worker**
@@ -103,6 +113,9 @@ vagrant ssh k8s-master-a
 ```
 
 ### Registring node: k8s-worker-1
+![](docs/images/rancher-registering-worker-1.png)
+
+
 #### Registration -> Step 1
 - Node role: [ ] etcd, [ ] Control Plane, [**X**] **Worker**
 
@@ -124,6 +137,8 @@ vagrant ssh k8s-worker-2
 [**paste:** sudo docker command]
 
 ### Registring node: k8s-worker-2
+![](docs/images/rancher-registering-worker-2.png)
+
 #### Registration -> Step 1
 - Node role: [ ] etcd, [ ] Control Plane, [**X**] **Worker**
 
@@ -145,6 +160,8 @@ vagrant ssh k8s-worker-2
 [**paste:** sudo docker command]
 
 ### Registring node: k8s-worker-3
+![](docs/images/rancher-registering-worker-3.png)
+
 #### Registration -> Step 1
 - Node role: [ ] etcd, [ ] Control Plane, [**X**] **Worker**
 
