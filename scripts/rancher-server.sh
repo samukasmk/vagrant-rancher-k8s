@@ -19,11 +19,11 @@ helper_instructions () {
     echo
     echo "  1.) add lines bellow to your /etc/hosts:"
     echo "      # rancher nodes"
-    echo "      192.168.0.240 rancher.local"
-    echo "      192.168.0.241 k8s-master-a.local"
-    echo "      192.168.0.251 k8s-worker-1.local"
-    echo "      192.168.0.252 k8s-worker-2.local"
-    echo "      192.168.0.253 k8s-worker-3.local"
+    echo "      192.168.1.240 rancher.local"
+    echo "      192.168.1.241 k8s-master-a.local"
+    echo "      192.168.1.251 k8s-worker-1.local"
+    echo "      192.168.1.252 k8s-worker-2.local"
+    echo "      192.168.1.253 k8s-worker-3.local"
     echo 
     echo "  2.) access rancher server in your browser:"
     echo "      https://rancher.local/"
